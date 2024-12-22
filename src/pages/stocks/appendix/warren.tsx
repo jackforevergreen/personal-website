@@ -1,5 +1,5 @@
 import { Images } from "../../../images/images";
-import { styles } from "../../components/layout";
+import { styles } from "../../../layout";
 
 const BuffettNotes = () => (
   <div>

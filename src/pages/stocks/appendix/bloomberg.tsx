@@ -5,8 +5,8 @@ import bloom4 from "../../../images/bloom4.png";
 import bloom5 from "../../../images/bloom5.png";
 import bloom6 from "../../../images/bloom6.png";
 import { Images } from "../../../images/images";
+import { styles } from "../../../layout";
 import Figure from "../../components/figure";
-import { styles } from "../../components/layout";
 
 const Bloomberg = () => (
   <div>

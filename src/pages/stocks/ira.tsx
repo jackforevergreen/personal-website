@@ -1,9 +1,9 @@
 import compound1 from "../../images/compound1.png";
 import compound2 from "../../images/compound2.png";
 import { Images } from "../../images/images";
+import { Layout, styles } from "../../layout";
 import Dropdown from "../components/dropdown";
 import Figure from "../components/figure";
-import { Layout, styles } from "../components/layout";
 import Email from "../components/signup";
 import Bloomberg from "./appendix/bloomberg";
 import BuffettNotes from "./appendix/warren";
