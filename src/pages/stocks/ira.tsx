@@ -8,65 +8,7 @@ import Email from "../components/signup";
 import Bloomberg from "./appendix/bloomberg";
 import BuffettNotes from "./appendix/warren";
 
-import { CSSProperties } from "react";
-
-const customStyles: { [key: string]: CSSProperties } = {
-  ...styles,
-  comparisonContainer: {
-    display: "flex",
-    gap: "40px",
-    marginBottom: "25px",
-    flexWrap: "wrap",
-  },
-  comparisonColumn: {
-    flex: 1,
-    minWidth: "250px",
-  },
-  comparisonHeader: {
-    ...styles.subHeader,
-    marginTop: "15px",
-  },
-  comparisonList: {
-    ...styles.list,
-    listStyle: "none",
-    paddingLeft: 0,
-  },
-  chartContainer: {
-    width: "100%",
-    marginBottom: "24px",
-  },
-};
-
-const IRAComparison = () => (
-  <div style={customStyles.comparisonContainer}>
-    <div style={customStyles.comparisonColumn}>
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <h3 style={customStyles.comparisonHeader}>Traditional IRA</h3>
-        <span style={{ color: "red", fontSize: "24px" }}>✗</span>
-      </div>
-      <ul style={customStyles.comparisonList}>
-        <li style={styles.listItem}>
-          Contributions are tax deductible in the present
-        </li>
-        <li style={styles.listItem}>No tax while money is in account</li>
-        <li style={styles.listItem}>Distributions taxed as income</li>
-      </ul>
-    </div>
-    <div style={customStyles.comparisonColumn}>
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <h3 style={customStyles.comparisonHeader}>Roth IRA</h3>
-        <span style={{ color: "green", fontSize: "24px" }}>✓</span>
-      </div>
-      <ul style={customStyles.comparisonList}>
-        <li style={styles.listItem}>Contributions are taxed in the present</li>
-        <li style={styles.listItem}>No tax while money is in account</li>
-        <li style={styles.listItem}>Tax free on withdrawal</li>
-      </ul>
-    </div>
-  </div>
-);
-
-const IRA = () => (
+const IRA: React.FC = () => (
   <Layout title="Stock Picks">
     <h2 style={styles.subHeader}>Finding the best IRA stocks</h2>
     <p style={styles.paragraph}>
@@ -81,8 +23,6 @@ const IRA = () => (
       retirement. There are a few different types, so lets give a quick
       comparison of the Traditional vs Roth.
     </p>
-
-    <IRAComparison />
 
     <p style={styles.paragraph}>
       The main difference between a Traditional and Roth IRA lie with the tax
@@ -153,43 +93,7 @@ const IRA = () => (
       </li>
     </ol>
 
-    <h2 style={styles.subHeader}>What type of stocks should go in an IRA?</h2>
-    <p style={styles.paragraph}>
-      The selection of stocks is dependent on the age of the buyer, risk
-      aversion, and available information. Since these investments are for
-      retirement they are longer term and shouldn't be based on short term
-      market fluctuations or macro factors. For this project I took inspiration
-      from Warren Buffet, the greatest investor of all time as he has a pretty
-      good track record for buying valuable stocks and holding them a long time.
-    </p>
-
-    <h2 style={styles.subHeader}>Methodology for Stock Selection</h2>
-    <p style={styles.paragraph}>
-      This is my third year to contribute to my Roth IRA and I wanted to upgrade
-      my investment strategy to ensure I was picking the best stocks for my
-      portfolio. For the stock selection I leveraged my student access to
-      Bloomberg terminals and the lessons learned from Buffet.
-    </p>
-
-    <h3 style={styles.subHeader}>Selection Criteria</h3>
-    <p style={styles.paragraph}>
-      The selection criteria for the 7 stocks below is a 3 part process for
-      screening and ranking stocks. It begins by using the Bloomberg EQS screen
-      to find a suitable list of securities to evaluate with more scrutiny. This
-      restricts the list to US based securities that are are the top 50th
-      percentile for a few metrics related to margin and cash flows. Then, after
-      an initial list is built out they are put into the Piotroski ranking
-      system. Initially I built out my own system of 7 metrics to rank the
-      securities on but Piotroski developed a system that has been backtested
-      better than me. Piotroski's April 2000 paper "Value Investing: The Use of
-      Historical Financial Statement Information to Separate Winners from
-      Losers," demonstrated that the Piotroski score method would have seen a
-      23% annual return between 1976 and 1996 if the expected winners were
-      bought and expected losers shorted.
-    </p>
-
     <h2 style={styles.subHeader}>Selected Stocks</h2>
-
     <p style={styles.paragraph}>
       After developing my strategy and screening and ranking the stocks I have
       developed my top 7 stocks for 2025. (7 stocks as the max contribution is
@@ -246,8 +150,8 @@ const IRA = () => (
       icon={
         <img
           src={Images.warrenLogo}
-          alt=""
-          style={{ width: "24px", height: "24px" }}
+          alt="Warren Buffett"
+          style={{ width: "24px", height: "24px", objectFit: "contain" }}
         />
       }
     >
@@ -259,8 +163,8 @@ const IRA = () => (
       icon={
         <img
           src={Images.bloombergIcon}
-          alt=""
-          style={{ width: "24px", height: "24px" }}
+          alt="Bloomberg"
+          style={{ width: "24px", height: "24px", objectFit: "contain" }}
         />
       }
     >
@@ -272,8 +176,8 @@ const IRA = () => (
       icon={
         <img
           src={Images.bloombergIcon}
-          alt=""
-          style={{ width: "24px", height: "24px" }}
+          alt="More"
+          style={{ width: "24px", height: "24px", objectFit: "contain" }}
         />
       }
     >

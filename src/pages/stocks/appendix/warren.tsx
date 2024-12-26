@@ -3,29 +3,15 @@ import { styles } from "../../../layout";
 
 const BuffettNotes = () => (
   <div>
-    <h3 style={styles.subHeader}>
+    <h2 style={styles.subHeader}>
       Warren Buffett and the Interpretation of Financial Statements
-    </h3>
+    </h2>
 
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        margin: "20px 0",
-        objectFit: "contain",
-      }}
-    >
-      <img
-        src={Images.warrenLogo}
-        alt="Warren Buffett"
-        style={{
-          maxWidth: "600px",
-          width: "auto",
-          height: "auto",
-          objectFit: "contain",
-        }}
-      />
-    </div>
+    <img
+      src={Images.warrenLogo}
+      alt="Warren Buffett"
+      style={{ maxWidth: "100%", height: "auto", margin: "20px 0" }}
+    />
 
     <p style={styles.paragraph}>
       The book is split up into 3 sections, an introduction and then a section
@@ -34,9 +20,7 @@ const BuffettNotes = () => (
       and related to Buffet's investment strategy.
     </p>
 
-    <h4 style={{ ...styles.subHeader, fontSize: "18px", marginTop: "15px" }}>
-      Introduction to Value Investing
-    </h4>
+    <h2 style={styles.subHeader}>Introduction to Value Investing</h2>
     <p style={styles.paragraph}>
       Value investing is purchasing durable companies and holding them for a
       long time. While complex computer systems investing has taken over the
@@ -56,9 +40,7 @@ const BuffettNotes = () => (
       </li>
     </ul>
 
-    <h4 style={{ ...styles.subHeader, fontSize: "18px", marginTop: "15px" }}>
-      Income Statement Analysis
-    </h4>
+    <h2 style={styles.subHeader}>Income Statement Analysis</h2>
     <p style={styles.paragraph}>Revenue - Expense = Profit</p>
     <p style={styles.paragraph}>Companies fall into two categories:</p>
     <ol style={styles.list}>
@@ -95,9 +77,7 @@ const BuffettNotes = () => (
       </li>
     </ul>
 
-    <h4 style={{ ...styles.subHeader, fontSize: "18px", marginTop: "15px" }}>
-      Balance Sheet Indicators
-    </h4>
+    <h2 style={styles.subHeader}>Balance Sheet Indicators</h2>
     <p style={styles.paragraph}>Assets = Liabilities + Shareholders' Equity</p>
     <ul style={styles.list}>
       <li style={styles.listItem}>
@@ -131,9 +111,7 @@ const BuffettNotes = () => (
       <li style={styles.listItem}>ROE = Net Earnings / Shareholders' Equity</li>
     </ul>
 
-    <h4 style={{ ...styles.subHeader, fontSize: "18px", marginTop: "15px" }}>
-      Cash Flow Statement Insights
-    </h4>
+    <h2 style={styles.subHeader}>Cash Flow Statement Insights</h2>
     <ul style={styles.list}>
       <li style={styles.listItem}>Focus on operating cash flow strength</li>
       <li style={styles.listItem}>Evaluate investing activities carefully</li>
@@ -148,9 +126,7 @@ const BuffettNotes = () => (
       </li>
     </ul>
 
-    <h4 style={{ ...styles.subHeader, fontSize: "18px", marginTop: "15px" }}>
-      Durable Competitive Advantage
-    </h4>
+    <h2 style={styles.subHeader}>Durable Competitive Advantage</h2>
     <p style={styles.paragraph}>
       The Equity Bond theory values the return of the EPS on the purchase price
       and projects a growth rate for the EPS. The calculation takes the original

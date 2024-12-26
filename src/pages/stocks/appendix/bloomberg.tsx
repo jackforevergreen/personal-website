@@ -10,27 +10,12 @@ import Figure from "../../components/figure";
 
 const Bloomberg = () => (
   <div>
-    <h3 style={styles.subHeader}>Bloomberg Terminal</h3>
-
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        margin: "20px 0",
-        objectFit: "contain",
-      }}
-    >
-      <img
-        src={Images.bloombergIcon}
-        alt="Bloomberg Terminal"
-        style={{
-          maxWidth: "600px",
-          width: "auto",
-          height: "auto",
-          objectFit: "contain",
-        }}
-      />
-    </div>
+    <h2 style={styles.subHeader}>Bloomberg Terminal</h2>
+    <img
+      src={Images.bloombergIcon}
+      alt="Bloomberg Terminal"
+      style={{ maxWidth: "100%", height: "auto", margin: "20px 0" }}
+    />
 
     <p style={styles.paragraph}>
       I am very fortunate that I was exposed to the Bloomberg terminal in my
@@ -39,17 +24,13 @@ const Bloomberg = () => (
       my best to capture the exact methodology I used to screen these stocks.
     </p>
 
-    <h4 style={{ ...styles.subHeader, fontSize: "18px", marginTop: "15px" }}>
-      EQS Screen Methodology
-    </h4>
-
+    <h2 style={styles.subHeader}>EQS Screen Methodology</h2>
     <p style={styles.paragraph}>
       The initial screen was designed to identify the highest quality stocks
       using the following criteria:
     </p>
 
     <Figure imageSrc={bloom1} altText="EQS Search" caption="EQS Bloomberg" />
-
     <Figure imageSrc={bloom2} altText="Blank EQS" caption="Blank EQS" />
 
     <ul style={styles.list}>
@@ -74,10 +55,7 @@ const Bloomberg = () => (
     <Figure imageSrc={bloom3} altText="My EQS" caption="My EQS" />
     <Figure imageSrc={bloom4} altText="My EQS" caption="My EQS" />
 
-    <h4 style={{ ...styles.subHeader, fontSize: "18px", marginTop: "15px" }}>
-      Fundamental Scoring Analysis
-    </h4>
-
+    <h2 style={styles.subHeader}>Fundamental Scoring Analysis</h2>
     <p style={styles.paragraph}>
       After applying the initial screening criteria, I used Bloomberg's
       fundamental scoring analysis Excel template to further evaluate the
@@ -108,14 +86,12 @@ const Bloomberg = () => (
         backgroundColor: "#f5f5f5",
         padding: "20px",
         borderRadius: "8px",
-        marginTop: "20px",
+        margin: "20px 0",
       }}
     >
-      <h4
-        style={{ ...styles.subHeader, fontSize: "18px", marginBottom: "10px" }}
-      >
+      <h2 style={styles.subHeader}>
         Key Benefits of Bloomberg Terminal Analysis
-      </h4>
+      </h2>
       <ul style={styles.list}>
         <li style={styles.listItem}>
           Access to comprehensive financial data and analysis tools
