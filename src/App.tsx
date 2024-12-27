@@ -5,10 +5,10 @@ import Blogs from "./pages/blog/Blog";
 import Home from "./pages/Home";
 import Hard from "./pages/projects/75hard";
 import CarbonCalc from "./pages/projects/carboncalc";
-import Wakeup from "./pages/projects/dayLogger";
+import WakeupLogger from "./pages/projects/dayLogger";
+import Projects from "./pages/projects/projects";
+import Ira from "./pages/projects/stocks/ira";
 import Resume from "./pages/Resume";
-import IRA from "./pages/stocks/ira";
-import Stocks from "./pages/stocks/stocks";
 import Video from "./pages/Video";
 import Writing from "./pages/Writing";
 
@@ -25,11 +25,7 @@ const App: React.FC = () => {
     { path: "/blogs", label: "Blogs" },
     { path: "/video", label: "Video" },
     { path: "/writing", label: "Writing" },
-    { path: "/75hard", label: "75 Hard" },
-    { path: "/stocks", label: "Stock Picks" },
-    { path: "/carboncalc", label: "CarbonCalc" },
-    { path: "/daylogger", label: "Wakeup Log" },
-    { path: "/ira", label: "IRA" },
+    { path: "/projects", label: "Projects" },
   ];
 
   const styles: Record<string, React.CSSProperties> = {
@@ -120,7 +116,7 @@ const App: React.FC = () => {
               onMouseEnter={() => setIsProjectsOpen(true)}
               onMouseLeave={() => setIsProjectsOpen(false)}
             >
-              <button style={styles.dropdownButton}>Projects ▾</button>
+              <button style={styles.dropdownButton}>More ▾</button>
               <div style={styles.dropdownContent}>
                 {projectItems.map((item) => (
                   <Link
@@ -146,11 +142,12 @@ const App: React.FC = () => {
             <Route path="/video" element={<Video />} />
             <Route path="/writing/*" element={<Writing />} />
             <Route path="/blog/*" element={<Blogs />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/*" element={<Projects />} />
+            <Route path="/stocks/ira" element={<Ira />} />
             <Route path="/75hard" element={<Hard />} />
-            <Route path="/stocks" element={<Stocks />} />
             <Route path="/carboncalc" element={<CarbonCalc />} />
-            <Route path="/daylogger" element={<Wakeup />} />
-            <Route path="/ira" element={<IRA />} />
+            <Route path="/daylogger" element={<WakeupLogger />} />
           </Routes>
         </main>
       </div>
