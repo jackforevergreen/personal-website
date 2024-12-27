@@ -28,14 +28,26 @@ const styles = {
   list: {
     marginLeft: "20px",
     marginBottom: "20px",
+    listStyle: "none",
+    padding: 0,
   },
   listItem: {
-    marginBottom: "8px",
+    marginBottom: "12px",
     fontSize: "16px",
   },
   link: {
     color: "#0066cc",
     textDecoration: "none",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
+  note: {
+    backgroundColor: "#f0f0f0",
+    border: "1px solid #ddd",
+    borderRadius: "4px",
+    padding: "10px",
+    marginBottom: "20px",
   },
 };
 

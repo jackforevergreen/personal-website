@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Figure from "../components/figure";
-import figure2_1 from "./images/honors-sustainability-essay/figure2-1.png";
-import figure2_2 from "./images/honors-sustainability-essay/figure2-2.png";
-import figure2_3 from "./images/honors-sustainability-essay/figure2-3.png";
-import figure2_4 from "./images/honors-sustainability-essay/figure2-4.png";
-import figure3_1 from "./images/honors-sustainability-essay/figure3-1.png";
+import figure2_1 from "../images/writingimages/honors-sustainability-essay/figure2-1.png";
+import figure2_2 from "../images/writingimages/honors-sustainability-essay/figure2-2.png";
+import figure2_3 from "../images/writingimages/honors-sustainability-essay/figure2-3.png";
+import figure2_4 from "../images/writingimages/honors-sustainability-essay/figure2-4.png";
+import figure3_1 from "../images/writingimages/honors-sustainability-essay/figure3-1.png";
 
 const HonorsSustainabilityEssay: React.FC = () => {
   return (
