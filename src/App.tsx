@@ -1,16 +1,17 @@
 import React from "react";
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import About from "./pages/About";
-import Blogs from "./pages/blog/Blog";
 import Home from "./pages/Home";
+import Resume from "./pages/Resume";
+import Video from "./pages/Video";
+import Writing from "./pages/Writing";
+import Blogs from "./pages/blog/Blog";
 import Hard from "./pages/projects/75hard";
+import BookClub from "./pages/projects/bookclub";
 import CarbonCalc from "./pages/projects/carboncalc";
 import WakeupLogger from "./pages/projects/dayLogger";
 import Projects from "./pages/projects/projects";
 import Ira from "./pages/projects/stocks/ira";
-import Resume from "./pages/Resume";
-import Video from "./pages/Video";
-import Writing from "./pages/Writing";
 
 const App: React.FC = () => {
   const [isProjectsOpen, setIsProjectsOpen] = React.useState(false);
@@ -148,6 +149,7 @@ const App: React.FC = () => {
             <Route path="/75hard" element={<Hard />} />
             <Route path="/carboncalc" element={<CarbonCalc />} />
             <Route path="/daylogger" element={<WakeupLogger />} />
+            <Route path="/bookclub" element={<BookClub />} />
           </Routes>
         </main>
       </div>
