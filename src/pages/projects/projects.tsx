@@ -10,6 +10,7 @@ const Projects: React.FC = () => {
         { title: "Carbon Calc", path: "/carboncalc" },
         { title: "75 hard", path: "/75hard" },
         { title: "Wakeup Log", path: "/daylogger" },
+        { title: "Book Club", path: "/bookclub" },
       ],
     },
   ];
