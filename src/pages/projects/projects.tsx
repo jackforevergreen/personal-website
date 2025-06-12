@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Layout, styles } from "../../layout";
 
 const Projects: React.FC = () => {
@@ -6,27 +7,39 @@ const Projects: React.FC = () => {
     {
       section: "Projects",
       links: [
-        { title: "IRA Stocks", path: "/stocks/ira" },
-        { title: "Carbon Calc", path: "/carboncalc" },
-        { title: "75 hard", path: "/75hard" },
-        { title: "Wakeup Log", path: "/daylogger" },
-        { title: "Book Club", path: "/bookclub" },
+        {
+          title: "IRA Stocks",
+          path: "/stocks/ira",
+          description:
+            "Part of my Independent Study in my final semester of Pitt. I ranked public equities and explored retirement and compounding.",
+        },
+        {
+          title: "Book Club",
+          path: "/bookclub",
+          description:
+            "A living library of books I'm reading with reflections and key takeaways.",
+        },
+        {
+          title: "Carbon Calc",
+          path: "/carboncalc",
+          description:
+            "Built a web-based carbon calculator that stores results to a Google Sheet.",
+        },
+        {
+          title: "75 Hard",
+          path: "/75hard",
+          description:
+            "Tracked daily goals, sent automated emails, and displayed progress on site.",
+        },
+        {
+          title: "Wakeup Log",
+          path: "/daylogger",
+          description:
+            "Logged wake-up times to a spreadsheet using a single-click form.",
+        },
       ],
     },
   ];
-
-  const linkStyle = {
-    color: "#0066cc",
-    textDecoration: "none",
-    display: "block",
-    marginBottom: "4px",
-  };
-
-  const headerStyle = {
-    fontSize: "18px",
-    fontWeight: "bold",
-    marginBottom: "16px",
-  };
 
   return (
     <Layout title="Projects">
@@ -36,25 +49,17 @@ const Projects: React.FC = () => {
       </p>
 
       <h2 style={styles.subHeader}>Project Links</h2>
-      <div style={{ display: "flex", gap: "80px" }}>
+      <div style={{ display: "flex", gap: "80px", flexWrap: "wrap" }}>
         {projectLinks.map((section, index) => (
           <div key={index} style={{ minWidth: "200px" }}>
-            <h3 style={headerStyle}>{section.section}</h3>
+            <h3 style={styles.sectionTitle}>{section.section}</h3>
             <ul style={{ listStyle: "none", padding: 0 }}>
               {section.links.map((link, linkIndex) => (
-                <li key={linkIndex}>
-                  <a
-                    href={link.path}
-                    style={linkStyle}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.textDecoration = "underline")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.textDecoration = "none")
-                    }
-                  >
+                <li key={linkIndex} style={{ marginBottom: "20px" }}>
+                  <Link to={link.path} className="link">
                     {link.title}
-                  </a>
+                  </Link>
+                  <p>{link.description}</p>
                 </li>
               ))}
             </ul>

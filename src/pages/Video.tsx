@@ -37,7 +37,7 @@ const Video: React.FC = () => (
       date="Apr 11, 2024"
       views={109}
       description="A video we made for the Big Idea Competition at Universtiy of Pittsburgh, which won $2,000"
-      link="https://www.youtube.com/watch?v=pNAxPushmN4"
+      link="https://www.youtube.com/watch?v=mnO2GUelElM"
     />
     <VideoItem
       title="How to Backflip"
