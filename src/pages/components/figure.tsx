@@ -32,6 +32,9 @@ const Figure: React.FC<FigureProps> = ({
   }, []);
 
   const getImageWidth = () => {
+    if (typeof window !== "undefined" && window.innerWidth <= 768) {
+      return "90%";
+    }
     if (typeof size === "number") {
       return `${size}%`;
     }
@@ -47,7 +50,6 @@ const Figure: React.FC<FigureProps> = ({
         return "85%";
     }
   };
-
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };

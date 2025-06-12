@@ -91,11 +91,12 @@ const NewSite: React.FC = () => {
       </p>
       <h2 style={styles.subHeader}>Training Plan</h2>
       <p>
-        To be honest my training not but but my actual training was rushed and
-        lackluster at best. I enlisted the help of Chat GPT to help me craft a
-        training plan. I created a foolproof plan for 3-4 runs per week. I would
-        do a short (3-5 miles) run, a medium (5-10 miles) run, and long run (10+
-        miles) per week slowly ramping up the long runs for the first 6 weeks.{" "}
+        To be honest my training plan was solid but but my actual training was
+        rushed and lackluster at best. I enlisted the help of Chat GPT to help
+        me craft a training plan. I created a foolproof plan for 3-4 runs per
+        week. I would do a short (3-5 miles) run, a medium (5-10 miles) run, and
+        long run (10+ miles) per week slowly ramping up the long runs for the
+        first 6 weeks.{" "}
       </p>
       <p>
         By week #3 I had already run my first half marathon in under 2 hours and
