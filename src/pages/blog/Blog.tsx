@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Route, Routes } from "react-router-dom";
+import HowNotToRunMarathon from "./how-not-to-run-marathon";
 import PreJackPearsonBlogs from "./pre-jack-pearson-blogs";
 
 export interface BlogPostProps {
@@ -31,6 +32,12 @@ const BlogList: React.FC = () => (
   <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
     <h2 style={{ marginBottom: "40px" }}>My Blog</h2>
     <BlogPostItem
+      title="How not to train for and run a marathon"
+      date="June 11, 2025"
+      excerpt="I ran my first ever marathon and it hurt. Heres what I wish I knew. "
+      slug="how-not-to-run-marathon"
+    />
+    <BlogPostItem
       title="New Personal Website!"
       date="September 20, 2024"
       excerpt="I made a new website! This is my 5th blog post. I hope you enjoy it."
@@ -50,6 +57,7 @@ const Blog: React.FC = () => (
   <Routes>
     <Route path="/" element={<BlogList />} />
     <Route path="/pre-jack-pearson-blogs" element={<PreJackPearsonBlogs />} />
+    <Route path="/how-not-to-run-marathon" element={<HowNotToRunMarathon />} />
   </Routes>
 );
 
