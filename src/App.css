@@ -36,3 +36,38 @@
     transform: rotate(360deg);
   }
 }
+
+/* Global link styling */
+a {
+  color: #0066cc;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.nav-link {
+  color: #000;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+.nav-link:hover {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.link {
+  color: #0066cc;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.link:hover {
+    color: red;
+  font-weight: bold;
+  text-decoration: underline;
+}

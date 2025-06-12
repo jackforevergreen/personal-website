@@ -4,7 +4,7 @@ interface FigureProps {
   imageSrc: string;
   altText: string;
   caption: string;
-  size?: "small" | "medium" | "large" | number;
+  size?: "mini" | "small" | "medium" | "large" | number;
   title?: string;
 }
 
@@ -36,6 +36,8 @@ const Figure: React.FC<FigureProps> = ({
       return `${size}%`;
     }
     switch (size) {
+      case "mini":
+        return "50%";
       case "small":
         return "70%";
       case "large":

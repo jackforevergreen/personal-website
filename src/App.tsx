@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import About from "./pages/About";
 import Home from "./pages/Home";
+import Media from "./pages/Media";
 import Resume from "./pages/Resume";
 import Video from "./pages/Video";
 import Writing from "./pages/Writing";
@@ -18,15 +19,15 @@ const App: React.FC = () => {
 
   const menuItems = [
     { path: "/", label: "Home" },
-    { path: "/about", label: "About" },
     { path: "/resume", label: "Resume" },
+    { path: "/projects", label: "Projects" },
   ];
 
   const projectItems = [
     { path: "/blogs", label: "Blogs" },
     { path: "/video", label: "Video" },
     { path: "/writing", label: "Writing" },
-    { path: "/projects", label: "Projects" },
+    { path: "/media", label: "Media" },
   ];
 
   const styles: Record<string, React.CSSProperties> = {
@@ -144,12 +145,12 @@ const App: React.FC = () => {
             <Route path="/writing/*" element={<Writing />} />
             <Route path="/blog/*" element={<Blogs />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/projects/*" element={<Projects />} />
             <Route path="/stocks/ira" element={<Ira />} />
             <Route path="/75hard" element={<Hard />} />
             <Route path="/carboncalc" element={<CarbonCalc />} />
             <Route path="/daylogger" element={<WakeupLogger />} />
             <Route path="/bookclub" element={<BookClub />} />
+            <Route path="/media" element={<Media />} />
           </Routes>
         </main>
       </div>

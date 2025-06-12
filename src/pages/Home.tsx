@@ -1,127 +1,97 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Layout, styles } from "../layout";
 import CustomSocialBar from "./components/socialbar";
 
 const HomePage: React.FC = () => {
-  const projectLinks = [
-    {
-      section: "Projects",
-      links: [
-        {
-          title: "IRA Stocks",
-          path: "/stocks/ira",
-          description:
-            "Part of my Independent Study in my final semester of Pitt. I did some ranking of public equities and wrote a little about retirement and compounding.",
-        },
-        {
-          title: "Carbon Calc",
-          path: "/carboncalc",
-          description:
-            "Build a web version of the carbon calc that stores data on a google sheet.",
-        },
-        {
-          title: "75 Hard",
-          path: "/75hard",
-          description:
-            "Wanted to learn how to send automated emails, track data in a google form and display it on the site.",
-        },
-        {
-          title: "Wakeup Log",
-          path: "/daylogger",
-          description:
-            "Button that records the time in a sheet and displays it.",
-        },
-        {
-          title: "Book Club",
-          path: "/bookclub",
-          description:
-            "A collection of books I am currently reading or have read.",
-        },
-      ],
-    },
-  ];
-
-  const linkStyle = {
-    color: "#0066cc",
-    textDecoration: "none",
-    display: "block",
-    marginBottom: "4px",
-  };
-
-  const headerStyle = {
-    fontSize: "18px",
-    fontWeight: "bold",
-    marginBottom: "16px",
-  };
-
   return (
     <Layout title="Welcome to My Website!">
       <p style={styles.paragraph}>
-        Hi, I'm Jack Pearson, a finance major and aspiring developer. This
-        website hosts some of my projects and helps me develop my web
-        development skills. Stay tuned as I add more!
+        Hi, my name is Jack Pearson. I am a{" "}
+        <a
+          href="https://www.linkedin.com/posts/jackbpearson_this-past-week-i-graduated-from-the-university-activity-7276631539164098560-AfY7?utm_source=share&utm_medium=member_desktop&rcm=ACoAADkLgd8B1hlEeAsBfxcepKZFhjqTDld44eo"
+          target="_blank"
+          rel="noreferrer"
+          style={styles.link}
+        >
+          recent grad
+        </a>{" "}
+        of the University of Pittsburgh and I work in Finance in NYC. I am
+        interested in technology and software development so I built{" "}
+        <Link to="/blogs/new-site" style={styles.link}>
+          this site
+        </Link>{" "}
+        as a home base for some of my projects.{" "}
+      </p>
+      <p>
+        Most recently I co-founded{" "}
+        <a
+          href="https://www.forevergreen.earth"
+          target="_blank"
+          rel="noreferrer"
+          style={styles.link}
+        >
+          Forevergreen
+        </a>
+        , a startup focused on building climate-conscious software and reducing
+        consumer emisisons.
+      </p>
+      <p>
+        I also like to write and wrote a{" "}
+        <Link to="/writing/thesis" style={styles.link}>
+          thesis
+        </Link>{" "}
+        about sustainble consumer behavior and am constanlty writing{" "}
+        <Link to="/blogs" style={styles.link}>
+          blogs
+        </Link>{" "}
+        about all sorts of things.
+      </p>
+      <p>
+        This site is a work in progress and I am constantly adding new features
+        to help me develop my web development skills.
+      </p>
+      <p>
+        Stay tuned as I add more! Thanks for taking the time to check out my
+        site.
+      </p>
+      <h2 style={styles.subHeader}>What’s New 🚀</h2>
+
+      <p style={styles.note}>
+        Highlights from recent updates across the site — new tools, features,
+        and content drops.
       </p>
 
-      <h2 style={styles.subHeader}>Site Development 🛠️</h2>
-      <div
-        style={{
-          backgroundColor: "#f0f0f0",
-          border: "1px solid #ddd",
-          borderRadius: "4px",
-          padding: "10px",
-          marginBottom: "20px",
-        }}
-      >
-        <strong>Note:</strong> This site is still in development and constantly
-        being updated!
-      </div>
-      <p style={styles.paragraph}>
-        This site is still pre-launch, and I haven't linked it to any public
-        profiles yet. I'm still building!
-      </p>
+      <p style={styles.paragraph}></p>
+
+      <ul style={styles.list}>
+        <li style={styles.listItem}>
+          <span style={styles.bulletIcon}>•</span>
+          Launched a{" "}
+          <Link to="/carboncalc" style={styles.link}>
+            Carbon Calculator
+          </Link>{" "}
+          that stores results to Google Sheets
+        </li>
+        <li style={styles.listItem}>
+          <span style={styles.bulletIcon}>•</span>
+          Built a{" "}
+          <Link to="/daylogger" style={styles.link}>
+            Wakeup Tracker
+          </Link>{" "}
+          using form logging
+        </li>
+        <li style={styles.listItem}>
+          <span style={styles.bulletIcon}>•</span>
+          Updated{" "}
+          <Link to="/blogs" style={styles.link}>
+            blog section
+          </Link>{" "}
+          with new posts on product design and sustainability
+        </li>
+      </ul>
 
       <CustomSocialBar />
-      <Layout title="Projects">
-        <p style={styles.paragraph}>
-          Here is the list of projects I have built on this site. I am working
-          to develop my skills and make useful enhancements to my life.
-        </p>
-        <div style={{ display: "flex", gap: "80px" }}>
-          {projectLinks.map((section, index) => (
-            <div key={index} style={{ minWidth: "200px" }}>
-              <h3 style={headerStyle}>{section.section}</h3>
-              <ul style={{ listStyle: "none", padding: 0 }}>
-                {section.links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
-                    <a
-                      href={link.path}
-                      style={linkStyle}
-                      onMouseEnter={(e) =>
-                        (e.currentTarget.style.textDecoration = "underline")
-                      }
-                      onMouseLeave={(e) =>
-                        (e.currentTarget.style.textDecoration = "none")
-                      }
-                    >
-                      {link.title}
-                    </a>
-                    {/* Render the description below each project */}
-                    <p
-                      style={{
-                        fontSize: "12px",
-                        fontStyle: "italic",
-                        marginTop: "5px",
-                      }}
-                    >
-                      {link.description}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </Layout>
     </Layout>
   );
 };
