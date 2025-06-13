@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import HowNotToRunMarathon from "./how-not-to-run-marathon";
 import HowToBeAMillionare from "./how-to-be-a-millionare";
+import HowToCreateAResume from "./how-to-create-a-resume";
 import TravelWithCreditCards from "./how-travel-with-credit-card-points";
 import PreJackPearsonBlogs from "./pre-jack-pearson-blogs";
 
@@ -33,6 +34,12 @@ export const BlogPostItem: React.FC<BlogPostProps> = ({
 const BlogList: React.FC = () => (
   <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
     <h2 style={{ marginBottom: "40px" }}>My Blog</h2>
+    <BlogPostItem
+      title="How to create a resume to land your dream job"
+      date="June 13, 2025"
+      excerpt="How I built the resume that landed me a six figure job on Wall Street."
+      slug="how-to-create-a-resume"
+    />
     <BlogPostItem
       title="How I used credit cards to backpack to 5 countries"
       date="June 12, 2025"
@@ -71,6 +78,7 @@ const Blog: React.FC = () => (
       path="/how-travel-with-credit-card-points"
       element={<TravelWithCreditCards />}
     />
+    <Route path="/how-to-create-a-resume" element={<HowToCreateAResume />} />
   </Routes>
 );
 
