@@ -1,5 +1,6 @@
 import React from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import CustomLink from "../components/hoverlink"; // adjust path if needed
 import HowNotToRunMarathon from "./how-not-to-run-marathon";
 import HowToBeAMillionare from "./how-to-be-a-millionare";
 import HowToCreateAResume from "./how-to-create-a-resume";
@@ -24,9 +25,7 @@ export const BlogPostItem: React.FC<BlogPostProps> = ({
     <h3 style={{ marginBottom: "10px" }}>{title}</h3>
     <p style={{ marginBottom: "10px", fontStyle: "italic" }}>{date}</p>
     <p>{excerpt}</p>
-    <Link to={`/blog/${slug}`} style={linkStyle}>
-      Read more
-    </Link>
+    <CustomLink href={`/blog/${slug}`}>Read more</CustomLink>
   </div>
 );
 
@@ -61,7 +60,7 @@ const BlogList: React.FC = () => (
     <BlogPostItem
       title="My Coding Orgins"
       date="December 5, 2023 - January 14, 2024"
-      excerpt="These are all the blogs I wrote before I made this website.)"
+      excerpt="These are all the blogs I wrote before I made this website."
       slug="pre-jack-pearson-blogs"
     />
   </div>
@@ -81,11 +80,5 @@ const Blog: React.FC = () => (
     <Route path="/how-to-create-a-resume" element={<HowToCreateAResume />} />
   </Routes>
 );
-
-const linkStyle: React.CSSProperties = {
-  fontSize: "16px",
-  color: "blue",
-  textDecoration: "underline",
-};
 
 export default Blog;

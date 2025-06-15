@@ -1,5 +1,6 @@
 import React from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import CustomLink from "./components/hoverlink"; // ✅ Adjust path as needed
 import ElieWieselEssay from "./writing/elie-wiesel-essay";
 import HonorsSustainabilityEssay from "./writing/honors-sustainability-essay";
 import Thesis from "./writing/thesis/thesis";
@@ -22,9 +23,7 @@ export const WritingItem: React.FC<WritingItemProps> = ({
     <h3 style={{ marginBottom: "10px" }}>{title}</h3>
     <p style={{ marginBottom: "10px", fontStyle: "italic" }}>{type}</p>
     <p>{description}</p>
-    <Link to={`/writing/${slug}`} style={linkStyle}>
-      Read more
-    </Link>
+    <CustomLink href={`/writing/${slug}`}>Read more</CustomLink>
   </div>
 );
 
@@ -65,11 +64,5 @@ const Writing: React.FC = () => (
     />
   </Routes>
 );
-
-const linkStyle: React.CSSProperties = {
-  fontSize: "16px",
-  color: "blue",
-  textDecoration: "underline",
-};
 
 export default Writing;

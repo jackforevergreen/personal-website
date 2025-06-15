@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { styles } from "../../layout";
 import FigureGrid from "../components/figuregrid";
 
+import CustomLink from "../components/hoverlink"; // Adjust path as needed
 import resume3 from "./components/resume/Jan2024.png";
 import resume2 from "./components/resume/June2023.png";
 import resume4 from "./components/resume/May2025.png";
@@ -66,7 +67,7 @@ const NewSite: React.FC = () => {
       />
       <p> </p>
       <div style={styles.note}>
-        <strong>Note:</strong>
+        <strong>Note: </strong>
         The main thing to highlight is how much more info I was able to
         communicate in May of 2025 vs Oct of 2022. I was able to convey so much
         more experience and skills, as every bullet, line, or section had
@@ -83,14 +84,13 @@ const NewSite: React.FC = () => {
         Google search and find a template that fits your industry and go from
         there. If you are in finance, consulting, or any adjacent field you are
         in luck as my amazing resume template is linked{" "}
-        <a
+        <CustomLink
           href="https://drive.google.com/drive/folders/1H6M0hGbohuCR0YvcQw0by4wqAHIE24p9?usp=sharing"
           target="_blank"
           rel="noreferrer"
-          style={styles.link}
         >
           here
-        </a>{" "}
+        </CustomLink>{" "}
         free to download. (I am biased but I think it is clean){" "}
       </p>
 
@@ -214,14 +214,13 @@ const NewSite: React.FC = () => {
       <div style={styles.note}>
         <strong>Pro Tip:</strong> There are lists online for “ed” words that
         resume reviewers look for in your industry. Check out MIT’s list{" "}
-        <a
+        <CustomLink
           href="https://capd.mit.edu/resources/resume-action-verbs/"
           target="_blank"
           rel="noreferrer"
-          style={styles.link}
         >
           https://capd.mit.edu/resources/resume-action-verbs/
-        </a>{" "}
+        </CustomLink>{" "}
       </div>
 
       <h2 style={styles.subHeader}>Leadership & Activities</h2>
