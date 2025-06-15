@@ -1,5 +1,11 @@
 import React from "react";
-import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  Link,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Media from "./pages/Media";
@@ -14,8 +20,15 @@ import WakeupLogger from "./pages/projects/dayLogger";
 import Projects from "./pages/projects/projects";
 import Ira from "./pages/projects/stocks/ira";
 
-const App: React.FC = () => {
+const App: React.FC = () => (
+  <Router>
+    <AppWithNav />
+  </Router>
+);
+
+const AppWithNav: React.FC = () => {
   const [isProjectsOpen, setIsProjectsOpen] = React.useState(false);
+  const location = useLocation();
 
   const menuItems = [
     { path: "/", label: "Home" },
@@ -102,59 +115,68 @@ const App: React.FC = () => {
   };
 
   return (
-    <Router>
-      <div style={styles.mainContainer}>
-        <header style={styles.header}>
-          <h1 style={styles.title}>Jack Pearson</h1>
-          <nav style={styles.nav}>
-            {menuItems.map((item) => (
-              <Link key={item.path} to={item.path} style={styles.link}>
-                {item.label}
-              </Link>
-            ))}
-
-            <div
-              style={styles.dropdownContainer}
-              onMouseEnter={() => setIsProjectsOpen(true)}
-              onMouseLeave={() => setIsProjectsOpen(false)}
+    <div style={styles.mainContainer}>
+      <header style={styles.header}>
+        <h1 style={styles.title}>Jack Pearson</h1>
+        <nav style={styles.nav}>
+          {menuItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              style={{
+                ...styles.link,
+                fontWeight: location.pathname === item.path ? "bold" : "normal",
+              }}
             >
-              <button style={styles.dropdownButton}>More ▾</button>
-              <div style={styles.dropdownContent}>
-                {projectItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    style={styles.dropdownLink}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </nav>
-        </header>
+              {item.label}
+            </Link>
+          ))}
 
-        <main style={styles.main}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/resume" element={<Resume />} />
-            <Route path="/writing" element={<Writing />} />
-            <Route path="/video" element={<Video />} />
-            <Route path="/writing/*" element={<Writing />} />
-            <Route path="/blog/*" element={<Blogs />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/stocks/ira" element={<Ira />} />
-            <Route path="/75hard" element={<Hard />} />
-            <Route path="/carboncalc" element={<CarbonCalc />} />
-            <Route path="/daylogger" element={<WakeupLogger />} />
-            <Route path="/bookclub" element={<BookClub />} />
-            <Route path="/media" element={<Media />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+          <div
+            style={styles.dropdownContainer}
+            onMouseEnter={() => setIsProjectsOpen(true)}
+            onMouseLeave={() => setIsProjectsOpen(false)}
+          >
+            <button style={styles.dropdownButton}>More ▾</button>
+            <div style={styles.dropdownContent}>
+              {projectItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  style={{
+                    ...styles.dropdownLink,
+                    fontWeight:
+                      location.pathname === item.path ? "bold" : "normal",
+                  }}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <main style={styles.main}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/resume" element={<Resume />} />
+          <Route path="/writing" element={<Writing />} />
+          <Route path="/video" element={<Video />} />
+          <Route path="/writing/*" element={<Writing />} />
+          <Route path="/blog/*" element={<Blogs />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/stocks/ira" element={<Ira />} />
+          <Route path="/75hard" element={<Hard />} />
+          <Route path="/carboncalc" element={<CarbonCalc />} />
+          <Route path="/daylogger" element={<WakeupLogger />} />
+          <Route path="/bookclub" element={<BookClub />} />
+          <Route path="/media" element={<Media />} />
+        </Routes>
+      </main>
+    </div>
   );
 };
 

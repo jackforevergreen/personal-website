@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Layout, styles } from "../../layout";
+import CustomLink from "../components/hoverlink";
 
 const Projects: React.FC = () => {
   const projectLinks = [
@@ -56,9 +56,8 @@ const Projects: React.FC = () => {
             <ul style={{ listStyle: "none", padding: 0 }}>
               {section.links.map((link, linkIndex) => (
                 <li key={linkIndex} style={{ marginBottom: "20px" }}>
-                  <Link to={link.path} className="link">
-                    {link.title}
-                  </Link>
+                  <CustomLink href={link.path}>{link.title}</CustomLink>
+
                   <p>{link.description}</p>
                 </li>
               ))}

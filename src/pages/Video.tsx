@@ -1,4 +1,5 @@
 import React from "react";
+import CustomLink from "../pages/components/hoverlink"; // adjust path as needed
 
 export interface VideoItemProps {
   title: string;
@@ -21,9 +22,9 @@ export const VideoItem: React.FC<VideoItemProps> = ({
     <p style={{ marginBottom: "10px", fontStyle: "italic" }}>{date}</p>
     <p>{description}</p>
     <p>{views} views</p>
-    <a href={link} target="_blank" rel="noopener noreferrer" style={linkStyle}>
+    <CustomLink href={link} target="_blank" rel="noopener noreferrer">
       Watch video
-    </a>
+    </CustomLink>
   </div>
 );
 
@@ -36,7 +37,7 @@ const Video: React.FC = () => (
       title="How to Plant a Tree with Forevergreen | Big Idea Competition"
       date="Apr 11, 2024"
       views={109}
-      description="A video we made for the Big Idea Competition at Universtiy of Pittsburgh, which won $2,000"
+      description="A video we made for the Big Idea Competition at University of Pittsburgh, which won $2,000"
       link="https://www.youtube.com/watch?v=mnO2GUelElM"
     />
     <VideoItem
@@ -46,7 +47,6 @@ const Video: React.FC = () => (
       description="A video tutorial on how to do a standing backflip"
       link="https://www.youtube.com/watch?v=pNAxPushmN4"
     />
-
     <VideoItem
       title="Flips and Skimboarding in Rehoboth"
       date="Sep 27, 2017"
@@ -54,7 +54,6 @@ const Video: React.FC = () => (
       description="A video of me doing some flips and tricks at the beach"
       link="https://youtu.be/NQ-TlDeCnbM?si=z-tLRQXFTo4vSd5E"
     />
-
     <VideoItem
       title="Maine 2017"
       date="Aug 18, 2017"
@@ -62,7 +61,6 @@ const Video: React.FC = () => (
       description="A video of a family trip to Maine in 2017 where I learned about custom transitions in FCP"
       link="https://youtu.be/vcbH5iXk6_s?si=2ImDkJCGccBk8uaj"
     />
-
     <VideoItem
       title="Frontflip Progression 4 Days"
       date="Aug 8, 2016"
@@ -72,11 +70,5 @@ const Video: React.FC = () => (
     />
   </div>
 );
-
-const linkStyle: React.CSSProperties = {
-  fontSize: "16px",
-  color: "blue",
-  textDecoration: "underline",
-};
 
 export default Video;

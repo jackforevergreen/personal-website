@@ -1,5 +1,6 @@
 import React from "react";
 import { Layout, styles } from "../layout";
+import CustomLink from "../pages/components/hoverlink"; // Adjust path if needed
 
 interface MediaItemProps {
   title: string;
@@ -21,14 +22,9 @@ const MediaItem: React.FC<MediaItemProps> = ({
       <strong>Source:</strong> {source}
     </p>
     <p style={styles.paragraph}>{description}</p>
-    <a
-      href={link}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={styles.link}
-    >
+    <CustomLink href={link} target="_blank" rel="noopener noreferrer">
       View Media
-    </a>
+    </CustomLink>
   </div>
 );
 
@@ -66,11 +62,12 @@ const Media: React.FC = () => (
       link="https://www.youtube.com/watch?v=cQR-15y3xHc"
       source="YouTube"
     />
+
     <MediaItem
       title="The Tribune-Democrat Article on Forevergreen"
       description="Article titled: Local college student, friends win innovation prize; aim to start sustainable business"
       link="https://drive.google.com/file/d/1iwA0SXzSbcVUNYwwwzembK62GbsmYRxe/view?usp=drive_link"
-      source="YouTube"
+      source="The Tribune-Democrat"
     />
   </Layout>
 );
