@@ -8,6 +8,12 @@ const Projects: React.FC = () => {
       section: "Projects",
       links: [
         {
+          title: "Workout Tracker",
+          path: "/tracker",
+          description:
+            "My first firebase project that I built to track my workouts. You can log all your lifts with your google account to see progress over time.",
+        },
+        {
           title: "IRA Stocks",
           path: "/stocks/ira",
           description:

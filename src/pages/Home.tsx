@@ -61,9 +61,8 @@ const HomePage: React.FC = () => {
       <ul style={styles.list}>
         <li style={styles.listItem}>
           <span style={styles.bulletIcon}>•</span>
-          Launched a{" "}
-          <CustomLink href="/carboncalc">Carbon Calculator</CustomLink> that
-          stores results to Google Sheets
+          Built a <CustomLink href="/tracker">Workout Tracker</CustomLink> that
+          has google login to store your workouts and track your lifts.
         </li>
         <li style={styles.listItem}>
           <span style={styles.bulletIcon}>•</span>
