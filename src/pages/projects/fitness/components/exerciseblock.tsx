@@ -5,7 +5,9 @@ import {
   getDocs,
   orderBy,
   query,
+  where,
 } from "firebase/firestore";
+
 import React, { useEffect, useState } from "react";
 import { db } from "../../../../firebase";
 import InputWithButtonRow from "./inputbuttonrow";
@@ -14,9 +16,10 @@ interface Props {
   value: string;
   onChange: (val: string) => void;
   uid: string;
+  mode: "lift" | "run";
 }
 
-const ExerciseDropdown: React.FC<Props> = ({ value, onChange, uid }) => {
+const ExerciseDropdown: React.FC<Props> = ({ value, onChange, uid, mode }) => {
   const [options, setOptions] = useState<string[]>([]);
   const [newExercise, setNewExercise] = useState("");
 
@@ -24,6 +27,7 @@ const ExerciseDropdown: React.FC<Props> = ({ value, onChange, uid }) => {
     const loadExercises = async () => {
       const q = query(
         collection(db, `users/${uid}/exercises`),
+        where("mode", "==", mode), // ← filter by mode
         orderBy("name")
       );
       const snapshot = await getDocs(q);
@@ -31,12 +35,13 @@ const ExerciseDropdown: React.FC<Props> = ({ value, onChange, uid }) => {
       setOptions(names);
     };
     if (uid) loadExercises();
-  }, [uid]);
+  }, [mode, uid]);
 
   const handleAdd = async () => {
     if (!newExercise.trim()) return;
     await addDoc(collection(db, `users/${uid}/exercises`), {
       name: newExercise,
+      mode: mode, // ← Pass mode as a prop
     });
     setOptions((prev) => [...prev, newExercise]);
     onChange(newExercise);
