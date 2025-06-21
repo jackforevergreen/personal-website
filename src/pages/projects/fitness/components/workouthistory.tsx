@@ -1,5 +1,12 @@
 // src/pages/projects/fitness/WorkoutHistory.tsx
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../../../../firebase";
 import Dropdown from "../../../components/dropdown";
@@ -26,7 +33,8 @@ const WorkoutHistory: React.FC<Props> = ({ uid }) => {
       const q = query(
         collection(db, "workouts"),
         where("uid", "==", uid),
-        orderBy("createdAt", "desc")
+        orderBy("createdAt", "desc"),
+        limit(5) // only show latest 5
       );
       const snapshot = await getDocs(q);
       const items = snapshot.docs.map((doc) => doc.data() as WorkoutLog);
@@ -46,7 +54,17 @@ const WorkoutHistory: React.FC<Props> = ({ uid }) => {
 
   return (
     <div>
-      <h2>Workout History</h2>
+      <h2>
+        <a
+          href="/full-history"
+          style={{ textDecoration: "underline", color: "black" }}
+        >
+          Workout History
+        </a>
+      </h2>
+      <p>
+        Click above to view full history or scroll down for latest 5 workouts.
+      </p>
       {Object.keys(groupedLogs).length === 0 ? (
         <p>No workouts logged yet.</p>
       ) : (

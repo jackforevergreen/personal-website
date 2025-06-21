@@ -17,6 +17,7 @@ import Hard from "./pages/projects/75hard";
 import BookClub from "./pages/projects/bookclub";
 import CarbonCalc from "./pages/projects/carboncalc";
 import WakeupLogger from "./pages/projects/dayLogger";
+import FullWorkoutHistory from "./pages/projects/fitness/components/full-workout-history";
 import LoginPage from "./pages/projects/fitness/login";
 import TrackerPage from "./pages/projects/fitness/tracker";
 import Projects from "./pages/projects/projects";
@@ -178,6 +179,7 @@ const AppWithNav: React.FC = () => {
           <Route path="/media" element={<Media />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/tracker" element={<TrackerPage />} />
+          <Route path="/full-history" element={<FullWorkoutHistory />} />
         </Routes>
       </main>
     </div>
