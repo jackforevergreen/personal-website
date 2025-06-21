@@ -24,7 +24,7 @@ const WorkoutHistory: React.FC<Props> = ({ uid }) => {
   useEffect(() => {
     const fetchLogs = async () => {
       const q = query(
-        collection(db, "workouts"),
+        collection(db, `users/${uid}/workouts`),
         where("uid", "==", uid),
         orderBy("createdAt", "desc")
       );
