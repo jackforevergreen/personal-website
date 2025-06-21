@@ -1,19 +1,52 @@
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../../../firebase";
 import { useAuth } from "../../../components/authContext";
 import Dropdown from "../../../components/dropdown";
+import StyledButton from "../components/button";
+import CalendarHeatmap from "./calendar";
+import WorkoutExerciseDisplay from "./workout-exercise-display";
+
+interface LiftSet {
+  reps: number;
+  weight: number;
+  rpe: number;
+}
+
+interface RunSet {
+  distance: number;
+  pace: number;
+  time: number;
+}
+
+type WorkoutSet = LiftSet | RunSet;
+
+interface WorkoutExercise {
+  name: string;
+  mode: "lift" | "run";
+  sets: WorkoutSet[];
+}
 
 interface WorkoutLog {
   createdAt: { seconds: number };
-  exercises: {
-    name: string;
-    sets: { reps: number; weight: number; rpe: number }[];
-  }[];
+  exercises: WorkoutExercise[];
 }
 
 const FullWorkoutHistory: React.FC = () => {
+  const formatPace = (pace: number): string => {
+    const mins = Math.floor(pace);
+    const secs = Math.round((pace - mins) * 60);
+    return `${mins}:${secs.toString().padStart(2, "0")} min/mile`;
+  };
+
+  const formatTime = (minutes: number): string => {
+    const hrs = Math.floor(minutes / 60);
+    const mins = Math.floor(minutes % 60);
+    const secs = Math.round((minutes - hrs * 60 - mins) * 60);
+    return `${hrs}h ${mins}m ${secs}s`;
+  };
+
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -21,15 +54,25 @@ const FullWorkoutHistory: React.FC = () => {
   const [groupedLogs, setGroupedLogs] = useState<Record<string, WorkoutLog[]>>(
     {}
   );
-  const [bests, setBests] = useState<Record<string, string>>({});
+  const [liftBests, setLiftBests] = useState<
+    Record<string, { weight: number; reps: number }>
+  >({});
+  const [topRun, setTopRun] = useState<{
+    distance: number;
+    pace: number;
+    time: number;
+  }>({
+    distance: 0,
+    pace: 0,
+    time: 0,
+  });
 
   useEffect(() => {
     if (!user) return;
 
     const fetchLogs = async () => {
       const q = query(
-        collection(db, "workouts"),
-        where("uid", "==", user.uid),
+        collection(db, `users/${user.uid}/workouts`),
         orderBy("createdAt", "desc")
       );
       const snapshot = await getDocs(q);
@@ -37,8 +80,8 @@ const FullWorkoutHistory: React.FC = () => {
       setLogs(items);
 
       const grouped: Record<string, WorkoutLog[]> = {};
-      const personalBests: Record<string, { weight: number; reps: number }> =
-        {};
+      const liftPB: Record<string, { weight: number; reps: number }> = {};
+      let runPB = { distance: 0, pace: 0, time: 0 };
 
       items.forEach((log) => {
         const dateStr = new Date(log.createdAt.seconds * 1000).toDateString();
@@ -46,43 +89,39 @@ const FullWorkoutHistory: React.FC = () => {
         grouped[dateStr].push(log);
 
         log.exercises.forEach((ex) => {
-          ex.sets.forEach((set) => {
-            const current = personalBests[ex.name];
-            if (
-              !current ||
-              set.weight * set.reps > current.weight * current.reps
-            ) {
-              personalBests[ex.name] = { weight: set.weight, reps: set.reps };
-            }
-          });
+          if (ex.mode === "lift") {
+            ex.sets.forEach((set) => {
+              const lift = set as LiftSet;
+              const current = liftPB[ex.name];
+              if (
+                !current ||
+                lift.weight * lift.reps > current.weight * current.reps
+              ) {
+                liftPB[ex.name] = { weight: lift.weight, reps: lift.reps };
+              }
+            });
+          } else if (ex.mode === "run") {
+            ex.sets.forEach((set) => {
+              const run = set as RunSet;
+              if (run.distance > runPB.distance) runPB.distance = run.distance;
+              if (run.pace > runPB.pace) runPB.pace = run.pace;
+              if (run.time > runPB.time) runPB.time = run.time;
+            });
+          }
         });
       });
 
-      const bestFormatted: Record<string, string> = {};
-      Object.entries(personalBests).forEach(([name, pr]) => {
-        bestFormatted[name] = `${pr.weight}x${pr.reps}`;
-      });
-
       setGroupedLogs(grouped);
-      setBests(bestFormatted);
+      setLiftBests(liftPB);
+      setTopRun(runPB);
     };
 
     fetchLogs();
   }, [user]);
 
-  const today = new Date();
-  const past30Days = Array.from({ length: 30 }, (_, i) => {
-    const date = new Date();
-    date.setDate(today.getDate() - i);
-    const formatted = date.toDateString();
-    return {
-      date: formatted,
-      completed: logs.some(
-        (log) =>
-          new Date(log.createdAt.seconds * 1000).toDateString() === formatted
-      ),
-    };
-  });
+  const workoutDates = logs.map(
+    (log) => new Date(log.createdAt.seconds * 1000)
+  );
 
   if (!user) {
     return (
@@ -97,30 +136,24 @@ const FullWorkoutHistory: React.FC = () => {
 
       <h3>Total Workouts: {logs.length}</h3>
 
-      <h3>Personal Bests</h3>
+      <h3>Personal Bests – Lifts</h3>
       <ul>
-        {Object.entries(bests).map(([name, best]) => (
+        {Object.entries(liftBests).map(([name, best]) => (
           <li key={name}>
-            {name}: {best}
+            <strong>{name}</strong>: Reps: {best.reps}, Weight: {best.weight}{" "}
+            lbs
           </li>
         ))}
       </ul>
 
-      <h3>Last 30 Days</h3>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-        {past30Days.map((day, i) => (
-          <div
-            key={i}
-            title={day.date}
-            style={{
-              width: 16,
-              height: 16,
-              borderRadius: "50%",
-              backgroundColor: day.completed ? "green" : "red",
-            }}
-          />
-        ))}
-      </div>
+      <h3>Personal Bests – Runs</h3>
+      <ul>
+        <li>Top Distance: {topRun.distance.toFixed(1)} miles</li>
+        <li>Top Pace: {formatPace(topRun.pace)}</li>
+        <li>Top Time: {formatTime(topRun.time)}</li>
+      </ul>
+
+      <CalendarHeatmap workoutTimestamps={workoutDates} />
 
       <h3>Workouts by Date</h3>
       {Object.entries(groupedLogs).map(([date, logs], i) => (
@@ -128,26 +161,19 @@ const FullWorkoutHistory: React.FC = () => {
           {logs.map((log, j) => (
             <div key={j} style={{ marginBottom: "1rem" }}>
               {log.exercises.map((ex, k) => (
-                <div key={k}>
-                  <strong>{ex.name}</strong>
-                  <ul>
-                    {ex.sets.map((set, m) => (
-                      <li key={m}>
-                        Reps: {set.reps}, Weight: {set.weight} lbs, RPE:{" "}
-                        {set.rpe}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <WorkoutExerciseDisplay key={k} exercise={ex} />
               ))}
             </div>
           ))}
         </Dropdown>
       ))}
 
-      <button onClick={() => navigate("/tracker")} style={{ marginTop: 30 }}>
+      <StyledButton
+        onClick={() => navigate("/tracker")}
+        style={{ marginTop: 30 }}
+      >
         ← Back to Tracker
-      </button>
+      </StyledButton>
     </div>
   );
 };

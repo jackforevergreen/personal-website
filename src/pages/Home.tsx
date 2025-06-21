@@ -58,23 +58,21 @@ const HomePage: React.FC = () => {
         and content drops.
       </p>
 
-      <ul style={styles.list}>
-        <li style={styles.listItem}>
-          <span style={styles.bulletIcon}>•</span>
-          Built a <CustomLink href="/tracker">Workout Tracker</CustomLink> that
-          has google login to store your workouts and track your lifts.
-        </li>
-        <li style={styles.listItem}>
-          <span style={styles.bulletIcon}>•</span>
-          Built a <CustomLink href="/daylogger">Wakeup Tracker</CustomLink>{" "}
-          using form logging
-        </li>
-        <li style={styles.listItem}>
-          <span style={styles.bulletIcon}>•</span>
-          Updated <CustomLink href="/blogs">blog section</CustomLink> with new
-          posts on product design and sustainability
-        </li>
-      </ul>
+      <div style={{ marginLeft: "20px", marginTop: "20px" }}>
+        <p style={styles.paragraph}>
+          • Built a <CustomLink href="/tracker">workout tracker</CustomLink>{" "}
+          with Google login to store my workouts and track my lifts/runs.
+        </p>
+
+        <p style={styles.paragraph}>
+          • Updated <CustomLink href="/blogs">blog section</CustomLink> with new
+          posts on product design and sustainability.
+        </p>
+        <p style={styles.paragraph}>
+          • Added a <CustomLink href="/media">media section</CustomLink> for
+          media appearances.
+        </p>
+      </div>
 
       <CustomSocialBar />
     </Layout>

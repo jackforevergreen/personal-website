@@ -10,17 +10,36 @@ import {
 import React, { useEffect, useState } from "react";
 import { db } from "../../../../firebase";
 import Dropdown from "../../../components/dropdown";
+import CustomLink from "../../../components/hoverlink";
+import WorkoutExerciseDisplay from "./workout-exercise-display";
 
 interface Props {
   uid: string;
 }
 
+interface LiftSet {
+  reps: number;
+  weight: number;
+  rpe: number;
+}
+
+interface RunSet {
+  distance: number;
+  pace: number;
+  time: number;
+}
+
+type WorkoutSet = LiftSet | RunSet;
+
+interface WorkoutExercise {
+  name: string;
+  mode: "lift" | "run";
+  sets: WorkoutSet[];
+}
+
 interface WorkoutLog {
   createdAt: { seconds: number };
-  exercises: {
-    name: string;
-    sets: { reps: number; weight: number; rpe: number }[];
-  }[];
+  exercises: WorkoutExercise[];
 }
 
 const WorkoutHistory: React.FC<Props> = ({ uid }) => {
@@ -31,7 +50,7 @@ const WorkoutHistory: React.FC<Props> = ({ uid }) => {
   useEffect(() => {
     const fetchLogs = async () => {
       const q = query(
-        collection(db, "workouts"),
+        collection(db, `users/${uid}/workouts`),
         where("uid", "==", uid),
         orderBy("createdAt", "desc"),
         limit(5) // only show latest 5
@@ -55,12 +74,12 @@ const WorkoutHistory: React.FC<Props> = ({ uid }) => {
   return (
     <div>
       <h2>
-        <a
+        <CustomLink
           href="/full-history"
           style={{ textDecoration: "underline", color: "black" }}
         >
           Workout History
-        </a>
+        </CustomLink>
       </h2>
       <p>
         Click above to view full history or scroll down for latest 5 workouts.
@@ -73,17 +92,7 @@ const WorkoutHistory: React.FC<Props> = ({ uid }) => {
             {logs.map((log, j) => (
               <div key={j} style={{ marginBottom: "1rem" }}>
                 {log.exercises.map((ex, k) => (
-                  <div key={k}>
-                    <strong>{ex.name}</strong>
-                    <ul>
-                      {ex.sets.map((set, m) => (
-                        <li key={m}>
-                          Reps: {set.reps}, Weight: {set.weight} lbs, RPE:{" "}
-                          {set.rpe}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <WorkoutExerciseDisplay key={k} exercise={ex} />
                 ))}
               </div>
             ))}
