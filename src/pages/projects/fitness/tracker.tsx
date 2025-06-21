@@ -15,10 +15,14 @@ const TrackerPage: React.FC = () => {
   const [sets, setSets] = useState([{ reps: "", weight: "", rpe: "" }]);
   const [refreshKey, setRefreshKey] = useState(0);
   const [mode, setMode] = useState<"lift" | "run">("lift");
+
   const [runDetails, setRunDetails] = useState({
     distance: "",
-    pace: "",
-    time: "",
+    paceMinutes: "",
+    paceSeconds: "",
+    timeHours: "",
+    timeMinutes: "",
+    timeSeconds: "",
   });
 
   const handleAddSet = () => {
@@ -38,39 +42,54 @@ const TrackerPage: React.FC = () => {
   const handleSaveWorkout = async () => {
     if (!user || !exercise) return;
 
-    await addDoc(collection(db, `users/${user.uid}/workouts`), {
+    const workoutData: any = {
       uid: user.uid,
       createdAt: Timestamp.now(),
-      mode,
-      exercises:
-        mode === "lift"
-          ? [
-              {
-                name: exercise,
-                sets: sets.map((s) => ({
-                  reps: parseInt(s.reps),
-                  weight: parseFloat(s.weight),
-                  rpe: parseFloat(s.rpe),
-                })),
-              },
-            ]
-          : [
-              {
-                name: exercise,
-                sets: [
-                  {
-                    distance: parseFloat(runDetails.distance),
-                    pace: parseFloat(runDetails.pace),
-                    time: parseFloat(runDetails.time),
-                  },
-                ],
-              },
-            ],
-    });
+      exercises: [],
+    };
 
+    if (mode === "lift") {
+      workoutData.exercises.push({
+        name: exercise,
+        mode: "lift",
+        sets: sets.map((s) => ({
+          reps: parseInt(s.reps),
+          weight: parseFloat(s.weight),
+          rpe: parseFloat(s.rpe),
+        })),
+      });
+    } else if (mode === "run") {
+      workoutData.exercises.push({
+        name: exercise,
+        mode: "run",
+        sets: [
+          {
+            distance: parseFloat(runDetails.distance),
+            pace:
+              parseInt(runDetails.paceMinutes || "0") +
+              parseInt(runDetails.paceSeconds || "0") / 60,
+            time:
+              parseInt(runDetails.timeHours || "0") * 60 +
+              parseInt(runDetails.timeMinutes || "0") +
+              parseInt(runDetails.timeSeconds || "0") / 60,
+          },
+        ],
+      });
+    }
+
+    await addDoc(collection(db, `users/${user.uid}/workouts`), workoutData);
+
+    // Reset inputs
     setExercise("");
     setSets([{ reps: "", weight: "", rpe: "" }]);
-    setRunDetails({ distance: "", pace: "", time: "" });
+    setRunDetails({
+      distance: "",
+      paceMinutes: "",
+      paceSeconds: "",
+      timeHours: "",
+      timeMinutes: "",
+      timeSeconds: "",
+    });
     setRefreshKey((prev) => prev + 1);
   };
 
@@ -82,21 +101,19 @@ const TrackerPage: React.FC = () => {
       ) : (
         <>
           <p>Welcome, {user.displayName}</p>
-          <div style={{ marginBottom: "1rem" }}>
+          <div>
             <label>
               <input
                 type="radio"
-                name="mode"
                 value="lift"
                 checked={mode === "lift"}
                 onChange={() => setMode("lift")}
               />
               Lift
             </label>
-            <label style={{ marginLeft: "1rem" }}>
+            <label style={{ marginLeft: "12px" }}>
               <input
                 type="radio"
-                name="mode"
                 value="run"
                 checked={mode === "run"}
                 onChange={() => setMode("run")}
@@ -111,63 +128,121 @@ const TrackerPage: React.FC = () => {
             mode={mode}
           />
           {mode === "lift" ? (
-            sets.map((set, i) => (
-              <div key={i}>
-                <p>Set {i + 1}</p>
-                <StyledInput
-                  placeholder="Reps"
-                  value={set.reps}
-                  onChange={(e) => handleSetChange(i, "reps", e.target.value)}
-                  style={{ marginBottom: "7px" }} // 🟢 spacing under dropdown
-                />
-                <StyledInput
-                  placeholder="Weight"
-                  value={set.weight}
-                  onChange={(e) => handleSetChange(i, "weight", e.target.value)}
-                  style={{ marginBottom: "7px" }} // 🟢 spacing under dropdown
-                />
-                <StyledInput
-                  placeholder="RPE"
-                  value={set.rpe}
-                  onChange={(e) => handleSetChange(i, "rpe", e.target.value)}
-                />
+            <>
+              {sets.map((set, i) => (
+                <div key={i}>
+                  <p>Set {i + 1}</p>
+                  <div style={{ display: "flex", gap: "8px" }}>
+                    <StyledInput
+                      placeholder="Reps"
+                      value={set.reps}
+                      onChange={(e) =>
+                        handleSetChange(i, "reps", e.target.value)
+                      }
+                    />
+                    <StyledInput
+                      placeholder="Weight"
+                      value={set.weight}
+                      onChange={(e) =>
+                        handleSetChange(i, "weight", e.target.value)
+                      }
+                    />
+                    <StyledInput
+                      placeholder="RPE"
+                      value={set.rpe}
+                      onChange={(e) =>
+                        handleSetChange(i, "rpe", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+              ))}
+              <div style={{ display: "flex", gap: "12px", marginTop: "24px" }}>
+                <StyledButton onClick={handleAddSet}>
+                  + Add another set
+                </StyledButton>
+                <StyledButton onClick={handleSaveWorkout}>
+                  Log Exercise
+                </StyledButton>
               </div>
-            ))
+            </>
           ) : (
             <>
-              <StyledInput
-                placeholder="Distance (miles)"
-                value={runDetails.distance}
-                onChange={(e) =>
-                  setRunDetails({ ...runDetails, distance: e.target.value })
-                }
-                style={{ marginBottom: "7px" }} // 🟢 spacing under dropdown
-              />
-              <StyledInput
-                placeholder="Pace (min/mile)"
-                value={runDetails.pace}
-                onChange={(e) =>
-                  setRunDetails({ ...runDetails, pace: e.target.value })
-                }
-                style={{ marginBottom: "7px" }} // 🟢 spacing under dropdown
-              />
-              <StyledInput
-                placeholder="Time (minutes)"
-                value={runDetails.time}
-                onChange={(e) =>
-                  setRunDetails({ ...runDetails, time: e.target.value })
-                }
-              />
+              <div>
+                <StyledInput
+                  placeholder="Distance (mi or km)"
+                  value={runDetails.distance}
+                  onChange={(e) =>
+                    setRunDetails({ ...runDetails, distance: e.target.value })
+                  }
+                  style={{ display: "flex", gap: "8px", marginBottom: "7px" }}
+                />
+                <div
+                  style={{ display: "flex", gap: "8px", marginBottom: "7px" }}
+                >
+                  <StyledInput
+                    placeholder="Pace Min"
+                    value={runDetails.paceMinutes}
+                    onChange={(e) =>
+                      setRunDetails({
+                        ...runDetails,
+                        paceMinutes: e.target.value,
+                      })
+                    }
+                  />
+                  <StyledInput
+                    placeholder="Pace Sec"
+                    value={runDetails.paceSeconds}
+                    onChange={(e) =>
+                      setRunDetails({
+                        ...runDetails,
+                        paceSeconds: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div style={{ display: "flex", gap: "8px" }}>
+                  <StyledInput
+                    placeholder="Time Hr"
+                    value={runDetails.timeHours}
+                    onChange={(e) =>
+                      setRunDetails({
+                        ...runDetails,
+                        timeHours: e.target.value,
+                      })
+                    }
+                  />
+                  <StyledInput
+                    placeholder="Time Min"
+                    value={runDetails.timeMinutes}
+                    onChange={(e) =>
+                      setRunDetails({
+                        ...runDetails,
+                        timeMinutes: e.target.value,
+                      })
+                    }
+                  />
+                  <StyledInput
+                    placeholder="Time Sec"
+                    value={runDetails.timeSeconds}
+                    onChange={(e) =>
+                      setRunDetails({
+                        ...runDetails,
+                        timeSeconds: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div
+                  style={{ display: "flex", gap: "12px", marginTop: "24px" }}
+                >
+                  <StyledButton onClick={handleSaveWorkout}>
+                    Log Run
+                  </StyledButton>
+                </div>
+              </div>
             </>
           )}
-          <div style={{ display: "flex", gap: "12px", marginTop: "24px" }}>
-            <StyledButton onClick={handleAddSet}>
-              + Add another set
-            </StyledButton>
-            <StyledButton onClick={handleSaveWorkout}>
-              Log Exercise
-            </StyledButton>
-          </div>
           <hr />
           <WorkoutHistory uid={user.uid} key={refreshKey} />
           <div style={{ marginTop: "20px" }}>

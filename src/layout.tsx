@@ -3,7 +3,7 @@ import React from "react";
 const styles = {
   pageContainer: {
     width: "100%",
-    maxWidth: "800px",
+    maxWidth: "min(90vw, 800px)",
     margin: "0 auto",
     padding: "20px",
     fontFamily: "Times New Roman",
@@ -34,12 +34,13 @@ const styles = {
     padding: 0,
   },
   listItem: {
-    marginBottom: "12px",
-    fontSize: "16px",
-    display: "flex",
-    alignItems: "flex-start",
+    display: "grid",
+    gridTemplateColumns: "auto 1fr",
+    alignItems: "start",
     gap: "10px",
-    lineHeight: "1.5",
+    fontSize: "16px",
+    lineHeight: "1.6",
+    marginBottom: "12px",
   },
 
   bulletIcon: {
@@ -51,9 +52,7 @@ const styles = {
   link: {
     color: "#0066cc",
     textDecoration: "none",
-    "&:hover": {
-      textDecoration: "underline",
-    },
+    cursor: "pointer",
   },
   note: {
     backgroundColor: "#f0f0f0",
